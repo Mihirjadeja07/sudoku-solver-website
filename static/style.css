@@ -1,0 +1,120 @@
+/* style.css */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Tailwind base styles are expected to be loaded via CDN in index.html */
+}
+
+/* Styles for the main Sudoku grid container */
+.sudoku-grid {
+    display: grid; /* THIS IS ESSENTIAL for the 9x9 layout */
+    grid-template-columns: repeat(9, minmax(0, 1fr)); /* Creates 9 equal-width columns */
+    grid-template-rows: repeat(9, minmax(0, 1fr));    /* Creates 9 equal-height rows */
+    
+    width: 100%;
+    max-width: 500px; /* Adjust as needed for your preferred max size */
+    aspect-ratio: 1 / 1; /* Makes the grid container a perfect square */
+
+    border: 3px solid #1e293b; /* Darker, more prominent border for the main grid (e.g., slate-800) */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    background-color: #f8fafc; /* A very light background for the grid area (e.g., slate-50) */
+    padding: 1px; /* Minimal padding to see grid background if cells have issues */
+    box-sizing: border-box; /* Ensures padding and border don't add to width/height */
+}
+
+/* Styles for individual cells within the Sudoku grid */
+/* These are base styles; JavaScript might add more specific classes or inline styles */
+.sudoku-cell {
+    display: flex; /* Allows centering of the input element within the cell */
+    justify-content: center;
+    align-items: center;
+    
+    /* Default thin border for all cells; thicker borders for subgrids will be applied by JS or more specific CSS */
+    border: 1px solid #cbd5e1; /* Lighter border (e.g., slate-300) */
+    
+    font-size: clamp(1rem, 4vw, 1.75rem); /* Responsive font size for the numbers */
+    font-weight: bold;
+    color: #0f172a; /* Dark text color (e.g., slate-900) */
+    
+    background-color: #ffffff; /* White background for cells by default */
+    box-sizing: border-box; /* Ensures padding and border don't add to width/height */
+
+    /* Ensure cells have a minimum size to be visible, even if aspect-ratio/grid fails */
+    min-width: 25px;
+    min-height: 25px;
+}
+
+/* Input elements within each cell */
+.sudoku-cell input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none; /* Remove default input border */
+    background-color: transparent; /* Make input background transparent to see cell background */
+    font-size: inherit; /* Inherit font size from .sudoku-cell */
+    font-weight: inherit; /* Inherit font weight */
+    color: inherit; /* Inherit text color */
+    outline: none; /* Remove focus outline if desired, or style it */
+    padding: 0;
+    margin: 0;
+    border-radius: 0; /* Inputs shouldn't have their own border radius if cells are square */
+    box-sizing: border-box;
+}
+
+.sudoku-cell input:focus {
+    background-color: #e0f2fe; /* Light blue on focus (e.g., sky-100) */
+}
+
+/* Styling for thick borders (subgrids) - applied by script.js by adding classes */
+/* Ensure these Tailwind-equivalent classes are defined if not using Tailwind directly for this */
+.border-r-2.border-r-gray-700 { /* Matches JS: border-r-2 border-r-gray-700 */
+    border-right-width: 2px !important; /* Use !important for debugging if needed */
+    border-right-color: #374151 !important; /* Tailwind gray-700 */
+}
+
+.border-b-2.border-b-gray-700 { /* Matches JS: border-b-2 border-b-gray-700 */
+    border-bottom-width: 2px !important;
+    border-bottom-color: #374151 !important; /* Tailwind gray-700 */
+}
+
+
+/* Styles for cell states (applied by JavaScript) */
+.sudoku-cell.pre-filled { /* If you implement pre-filled cells */
+    background-color: #f1f5f9; /* Lighter gray (e.g., slate-100) */
+    color: #475569; /* Muted text color (e.g., slate-600) */
+}
+
+.sudoku-cell.solved { /* For newly solved numbers */
+    background-color: #f0fdf4 !important; /* Light green background (e.g., green-50) */
+    color: #15803d !important; /* Darker green text (e.g., green-700) */
+}
+
+.sudoku-cell.error-cell { /* For input validation errors */
+    background-color: #ffe4e6 !important; /* Light red background (e.g., rose-50) */
+    color: #be123c !important; /* Darker red text (e.g., rose-700) */
+}
+
+/* Button styling (mostly handled by Tailwind in HTML, but can have fallbacks/overrides here) */
+.action-button {
+    /* These are Tailwind classes from your HTML. If Tailwind fails, these won't apply. */
+    /* Example: padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    cursor: pointer;
+}
+.action-button:hover {
+    transform: translateY(-1px);
+}
+.action-button:active {
+    transform: translateY(0px);
+}
+
+/* Message area styling */
+#message-area {
+    min-height: 2rem;
+    transition: opacity 0.3s ease-in-out;
+    /* Specific background/text colors are applied by JS using Tailwind classes */
+}
